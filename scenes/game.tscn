@@ -1,0 +1,20 @@
+[gd_scene format=4 uid="uid://copb1dhgp0lbb"]
+
+[ext_resource type="PackedScene" uid="uid://dcnhf8wn5bmk4" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://dbygvlu31c23j" path="res://scenes/tile_map_ground.tscn" id="2_yqjtg"]
+
+[node name="Game" type="Node2D" unique_id=1669433995]
+
+[node name="Player" parent="." unique_id=1794287301 instance=ExtResource("1_uwrxv")]
+z_index = 10
+position = Vector2(575, 324)
+
+[node name="TileMapLayer3" parent="." unique_id=1461368361 instance=ExtResource("2_yqjtg")]
+z_index = 3
+tile_map_data = PackedByteArray("AADm/x4AAQAJAAAAAAALAAoAAQAEAAAAAAAXAAUAAQAEAAAAAAD//wsAAQAEAAAAAAD0/wUAAQAEAAAAAAAsAPv/AQAEAAAAAAAIAAAAAQAEAAAAAADt//b/AQAEAAAAAAAcAPf/AQAEAAAAAAACAPX/AQAEAAAAAADk/wYAAQAEAAAAAADr/xYAAQAJAAAAAAD7/xwAAQAJAAAAAAAdABsAAQAJAAAAAAA3AA8AAQAJAAAAAAAnABAAAQAJAAAAAAA3ABoAAQAJAAAAAAA=")
+
+[node name="TileMapLayer2" parent="." unique_id=766608920 instance=ExtResource("2_yqjtg")]
+
+[node name="TileMapLayer1" parent="." unique_id=1018493104 instance=ExtResource("2_yqjtg")]
+z_index = 1
+tile_map_data = PackedByteArray("AAD+/xIAAQAGAAEAAAACABIAAQAGAAEAAAAGABIAAQAGAAEAAAAWABIAAQAGAAEAAAAiAAYAAQAGAAEAAAAmAAYAAQAGAAEAAAAqAAYAAQAGAAEAAAAuAAYAAQAGAAEAAAAyAAYAAQAGAAEAAAAKABYAAQAGAAEAAAAOABYAAQAGAAEAAAASABYAAQAGAAEAAAAaAA4AAQAGAAEAAAAeAAoAAQAGAAEAAAA2AAIAAQAGAAEAAAA6AP7/AQAGAAEAAAA6APr/AQAGAAEAAAA+APb/AQAGAAEAAAD6/w4AAQAGAAEAAAD2/w4AAQAGAAEAAADi/woAAQAGAAEAAADm/woAAQAGAAEAAADq/woAAQAGAAEAAADu/woAAQAGAAEAAADy/woAAQAGAAEAAAA=")
