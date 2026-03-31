@@ -8,9 +8,9 @@ const BASESPEED = 250
 var idledirectiony=1
 var attacksqueued=false
 var attackvariant=1
-#momentum opposite of actual momentum
-var momentumx=1
-var momentumy=1
+#delayed direction
+var ddx=0
+var ddy=0
 func _physics_process(delta: float) -> void:
 	#input
 	var directionx := Input.get_axis("left", "right")
@@ -21,25 +21,15 @@ func _physics_process(delta: float) -> void:
 	var STOP := SPEED
 #movement
 	if attack==true or attacktimer.is_stopped()==false:
-		SPEED=0
-	if directionx:
-		velocity.x = directionx * SPEED
-		if momentumx<velocity.x:
-			momentumx+=1
-	else:
+		SPEED*=0.1
+	ddy=move_toward(ddy,directiony,3*delta)
+	ddx=move_toward(ddx,directionx,3*delta)
+	velocity.y = ddy * SPEED
+	velocity.x = ddx * SPEED
+	if ddx==0:
 		velocity.x = move_toward(velocity.x, 0, STOP)
-		velocity.x*=momentumx
-		if momentumx>0:
-			momentumx-=1
-	if directiony:
-		velocity.y = directiony * SPEED
-		if momentumy<velocity.y:
-			momentumy+=1
-	else:
+	if ddy==0:
 		velocity.y = move_toward(velocity.y, 0, STOP)
-		velocity.y*=SPEED* momentumy
-		if momentumy>0:
-			momentumy-=1
 	#saving the y direction
 	if directiony:
 		idledirectiony=directiony
