@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attacktimer: Timer = $attacktimer
-@onready var player: CharacterBody2D = $"."
+@onready var enemy: CharacterBody2D = $"."
 
 const BASESPEED = 250
 var idledirectiony=1
@@ -13,8 +13,8 @@ var ddx=0
 var ddy=0
 func _physics_process(delta: float) -> void:
 	#input
-	var directionx := Input.get_axis("left", "right")
-	var directiony := Input.get_axis("up", "down")
+	var directionx := 0
+	var directiony := 0
 	var run := 1+0.5*int(Input.is_action_pressed("run"))
 	var attack := Input.is_action_pressed("attack")
 	var SPEED := run * BASESPEED * (delta*50)
