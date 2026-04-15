@@ -71,4 +71,3 @@ offset = Vector2(0, -35)
 [node name="Enemy" parent="." unique_id=1203587973 instance=ExtResource("6_p57ef")]
 z_index = 9
 position = Vector2(473, 46)
-script = null

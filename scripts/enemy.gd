@@ -3,8 +3,7 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attacktimer: Timer = $attacktimer
 @onready var enemy: CharacterBody2D = $"."
-@onready var enemyraycast: RayCast2D = $enemyraycast
-const BASESPEED = 250
+const BASESPEED = 200
 var idledirectiony=1
 var attacksqueued=false
 var attackvariant=1
@@ -13,36 +12,33 @@ var ddx=0
 var ddy=0
 var target_player
 func _ready() -> void:
-	enemyraycast.enabled = true
-func _on_detection_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		target_player = body
+	print("enemy.gd Ready")
+func _on_body_entered(body: CharacterBody2D) -> void:
+	target_player = body
+	print("body entered")
 
-func _on_detection_area_body_exited(body: Node2D) -> void:
+func _on_body_exited(body: CharacterBody2D) -> void:
 	if body == target_player:
 		target_player = null
-
+		print("body exited")
 
 
 func _physics_process(delta: float) -> void:
 	#input
-	var directionx := enemyraycast.target_position.x/enemyraycast.target_position.x
-	var directiony := enemyraycast.target_position.y/enemyraycast.target_position.y
-	var run := 1+0.5*int(Input.is_action_pressed("run"))
+	var directionx=0.0
+	var directiony=0.0
+	var run := 1+1*int(Input.is_action_pressed("run"))
 	var attack := Input.is_action_pressed("attack")
 	var SPEED := run * BASESPEED * (delta*50)
 	var STOP := SPEED
 #movement
+	var direction=0
 	if target_player:
-		# Calculate direction: (Destination - Start)
-		var direction = (target_player.global_position - global_position).normalized()
-		velocity = direction * SPEED
-	else:
-		velocity = Vector2.ZERO
+		print("target player")
+		directionx =(target_player.global_position.x - global_position.x)/300
+		directiony =(target_player.global_position.y - global_position.y)/300
 	if attack==true or attacktimer.is_stopped()==false:
 		SPEED*=0.1
-	var direction = enemyraycast.global_transform.x
-	velocity = direction * SPEED
 	ddy=move_toward(ddy,directiony,3*delta)
 	ddx=move_toward(ddx,directionx,3*delta)
 	velocity.y = ddy * SPEED
@@ -66,27 +62,12 @@ func _physics_process(delta: float) -> void:
 		if attacktimer.is_stopped():
 			attacktimer.start()
 			if idledirectiony<0:
-				if attackvariant==2:
-					animated_sprite.play("attack_up_2")
-					attackvariant=1
-				else:
-					animated_sprite.play("attack_up_1")
-					attackvariant=2
+				animated_sprite.play("attack_up")
 			else:
 				if idledirectiony>0:
-					if attackvariant==2:
-						animated_sprite.play("attack_down_2")
-						attackvariant=1
-					else:
-						animated_sprite.play("attack_down_1")
-						attackvariant=2
+					animated_sprite.play("attack_down")
 				else:
-					if attackvariant==2:
-						animated_sprite.play("attack_side_2")
-						attackvariant=1
-					else:
-						animated_sprite.play("attack_side_1")
-						attackvariant=2
+					animated_sprite.play("attack_side")
 	else:
 		if directionx==0 and directiony==0 and attacktimer.is_stopped():
 			animated_sprite.play("idle")

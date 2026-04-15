@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cuojm37festx4" path="res://scripts/enemy.gd" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://dsn22244c5tu2" path="res://assets/Factions/Goblins/Troops/Torch/Red/Torch_Red.png" id="2_4ra3w"]
-[ext_resource type="Script" uid="uid://ctjew48fsy7vv" path="res://scripts/aggroarea.gd" id="4_5uy6h"]
+[ext_resource type="Script" uid="uid://rdnpcs5confx" path="res://scenes/enemyraycast.gd" id="3_4ra3w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
 atlas = ExtResource("2_4ra3w")
@@ -270,13 +270,13 @@ func _process(delta: float) -> void:
 radius = 300.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1203587973]
-collision_mask = 3
 script = ExtResource("1_md0e3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1845418674]
 sprite_frames = SubResource("SpriteFrames_2sbpf")
-animation = &"attack_side"
+animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.23254482
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=665045583]
 shape = SubResource("CircleShape2D_78kod")
@@ -287,14 +287,18 @@ wait_time = 0.6
 one_shot = true
 script = SubResource("GDScript_605iw")
 
+[node name="enemyraycast" type="RayCast2D" parent="." unique_id=1115705586]
+target_position = Vector2(300, 0)
+collision_mask = 2
+script = ExtResource("3_4ra3w")
+
 [node name="aggroarea" type="Area2D" parent="." unique_id=382787812]
 collision_layer = 2
 collision_mask = 2
 input_pickable = false
-script = ExtResource("4_5uy6h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggroarea" unique_id=307848705]
 shape = SubResource("CircleShape2D_4ra3w")
 
-[connection signal="body_entered" from="aggroarea" to="." method="_on_body_entered"]
-[connection signal="body_exited" from="aggroarea" to="." method="_on_body_exited"]
+[connection signal="body_entered" from="aggroarea" to="." method="_on_aggroarea_body_entered"]
+[connection signal="body_exited" from="aggroarea" to="." method="_on_aggroarea_body_exited"]
