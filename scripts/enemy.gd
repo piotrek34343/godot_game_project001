@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attacktimer: Timer = $attacktimer
 @onready var enemy: CharacterBody2D = $"."
-const BASESPEED = 200
+const BASESPEED = 100
 var idledirectiony=1
 var attacksqueued=false
 var attackvariant=1
@@ -12,15 +12,13 @@ var ddx=0
 var ddy=0
 var target_player
 func _ready() -> void:
-	print("enemy.gd Ready")
+	pass
 func _on_body_entered(body: CharacterBody2D) -> void:
 	target_player = body
-	print("body entered")
 
 func _on_body_exited(body: CharacterBody2D) -> void:
 	if body == target_player:
 		target_player = null
-		print("body exited")
 
 
 func _physics_process(delta: float) -> void:
@@ -34,13 +32,13 @@ func _physics_process(delta: float) -> void:
 #movement
 	var direction=0
 	if target_player:
-		print("target player")
 		directionx =(target_player.global_position.x - global_position.x)/300
 		directiony =(target_player.global_position.y - global_position.y)/300
 	if attack==true or attacktimer.is_stopped()==false:
-		SPEED*=0.1
+		SPEED=0
 	ddy=move_toward(ddy,directiony,3*delta)
 	ddx=move_toward(ddx,directionx,3*delta)
+	var norm :=sqrt(ddx**2+ddy**2)
 	velocity.y = ddy * SPEED
 	velocity.x = ddx * SPEED
 	if ddx==0:
@@ -50,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	#saving the y direction
 	if directiony:
 		idledirectiony=directiony
-	if directionx:
+	if abs(directionx)>abs(idledirectiony):
 		idledirectiony=0
 	#sprite, animations
 	if directionx>0:

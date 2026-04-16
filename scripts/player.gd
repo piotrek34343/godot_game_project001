@@ -21,15 +21,15 @@ func _physics_process(delta: float) -> void:
 	var STOP := SPEED
 #movement
 	if attack==true or attacktimer.is_stopped()==false:
-		SPEED*=0.1
+		SPEED*=(attacktimer.time_left+0.2)**3
 	ddy=move_toward(ddy,directiony,3*delta)
 	ddx=move_toward(ddx,directionx,3*delta)
 	velocity.y = ddy * SPEED
 	velocity.x = ddx * SPEED
 	if ddx==0:
-		velocity.x = move_toward(velocity.x, 0, STOP)
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 	if ddy==0:
-		velocity.y = move_toward(velocity.y, 0, STOP)
+		velocity.y = move_toward(velocity.y, 0, SPEED)
 	#saving the y direction
 	if directiony:
 		idledirectiony=directiony

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cuojm37festx4" path="res://scripts/enemy.gd" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://dsn22244c5tu2" path="res://assets/Factions/Goblins/Troops/Torch/Red/Torch_Red.png" id="2_4ra3w"]
-[ext_resource type="Script" uid="uid://ctjew48fsy7vv" path="res://scripts/aggroarea.gd" id="4_5uy6h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
 atlas = ExtResource("2_4ra3w")
@@ -270,7 +269,6 @@ func _process(delta: float) -> void:
 radius = 300.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1203587973]
-collision_mask = 3
 script = ExtResource("1_md0e3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1845418674]
@@ -291,7 +289,6 @@ script = SubResource("GDScript_605iw")
 collision_layer = 2
 collision_mask = 2
 input_pickable = false
-script = ExtResource("4_5uy6h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggroarea" unique_id=307848705]
 shape = SubResource("CircleShape2D_4ra3w")
