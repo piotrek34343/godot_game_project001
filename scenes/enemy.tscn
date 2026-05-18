@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cuojm37festx4" path="res://scripts/enemy.gd" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://dsn22244c5tu2" path="res://assets/Factions/Goblins/Troops/Torch/Red/Torch_Red.png" id="2_4ra3w"]
+[ext_resource type="PackedScene" uid="uid://dtfltel6n3vv" path="res://scenes/killzone.tscn" id="3_4ra3w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
 atlas = ExtResource("2_4ra3w")
@@ -150,7 +151,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack_down",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -173,7 +174,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack_side",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -196,7 +197,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack_up",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -222,7 +223,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -245,7 +246,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_78kod"]
@@ -273,15 +274,16 @@ script = ExtResource("1_md0e3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1845418674]
 sprite_frames = SubResource("SpriteFrames_2sbpf")
-animation = &"attack_side"
+animation = &"attack_down"
 autoplay = "idle"
+frame_progress = 0.016253382
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=665045583]
 shape = SubResource("CircleShape2D_78kod")
 
 [node name="attacktimer" type="Timer" parent="." unique_id=863002812]
 process_callback = 0
-wait_time = 0.6
+wait_time = 1.2
 one_shot = true
 script = SubResource("GDScript_605iw")
 
@@ -292,6 +294,10 @@ input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aggroarea" unique_id=307848705]
 shape = SubResource("CircleShape2D_4ra3w")
+
+[node name="killzone" parent="." unique_id=1422391969 instance=ExtResource("3_4ra3w")]
+rotation = 0.7853982
+scale = Vector2(5.5, 5.5)
 
 [connection signal="body_entered" from="aggroarea" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="aggroarea" to="." method="_on_body_exited"]
